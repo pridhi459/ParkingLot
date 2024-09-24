@@ -1,15 +1,15 @@
-package dto;
+package com.parkingLot.Entities;
 
-import Enums.vehicleColor;
-import Enums.vehicleType;
+import com.parkingLot.Enums.vehicleColor;
+import com.parkingLot.Enums.vehicleType;
 
 public class Vehicle {
-    private final int registerNumber;
+    private final String registerNumber;
     private final vehicleType type;
     private final vehicleColor color;
     private int parkingSlot = -1;
 
-    public Vehicle(int registerNumber, vehicleType type, vehicleColor color) {
+    public Vehicle(String registerNumber, vehicleType type, vehicleColor color) {
         this.registerNumber = registerNumber;
         this.type = type;
         this.color = color;
@@ -22,12 +22,17 @@ public class Vehicle {
     public int getParkingSlot() {
         return parkingSlot;
     }
+    public String getRegisterNumber() {
+        return registerNumber;
+    }
 
     public boolean checkColor(vehicleColor colour) {
         return this.color == colour;
     }
 
-    public boolean checkRegisterNumber(int RegNo) {
-        return RegNo == this.registerNumber;
+    public boolean checkRegisterNumber(String RegNo) {
+        return RegNo.equals(this.registerNumber);
     }
+
+
 }

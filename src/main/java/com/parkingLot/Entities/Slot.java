@@ -1,12 +1,13 @@
-package dto;
+package com.parkingLot.Entities;
 
-public class slot {
+public class Slot {
 
+    // Slot class is used to represent a parking slot in a parking lot
     private final int slotNumber;
     private boolean isOccupied=false;
     private Vehicle vehicle=null;
 
-    public slot(int slotNumber) {
+    public Slot(int slotNumber) {
 
         this.slotNumber = slotNumber;
 

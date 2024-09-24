@@ -1,4 +1,4 @@
-package Enums;
+package com.parkingLot.Enums;
 
 public enum vehicleType {
     CAR,

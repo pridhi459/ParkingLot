@@ -1,4 +1,4 @@
-package Exceptions;
+package com.parkingLot.Exceptions;
 
 public class VehicleNotFoundException extends RuntimeException {
     public VehicleNotFoundException(String message) {
