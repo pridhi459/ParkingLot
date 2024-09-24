@@ -27,7 +27,6 @@ public class AttendantTest {
         assertThrows(DuplicateParkingLotAssignmentException.class,() -> attendant.assign(parkinglot));
     }
 
-
     @Test
     void TestAttendantPark()throws Exception{
         Attendant attendant = new Attendant();
@@ -57,5 +56,4 @@ public class AttendantTest {
         Vehicle anotherCar = new Vehicle("IN-786", vehicleType.CAR, vehicleColor.GREEN);
 
     }
-
 }
