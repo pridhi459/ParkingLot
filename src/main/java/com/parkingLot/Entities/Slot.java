@@ -1,15 +1,17 @@
 package com.parkingLot.Entities;
 
-public class Slot {
+import com.parkingLot.Enums.SlotStatus;
 
+public class Slot {
     // Slot class is used to represent a parking slot in a parking lot
+
     private final int slotNumber;
-    private boolean isOccupied=false;
+    private SlotStatus slotStatus;
     private Vehicle vehicle=null;
 
     public Slot(int slotNumber) {
-
         this.slotNumber = slotNumber;
+        slotStatus = SlotStatus.FREE;
 
     }
 
@@ -17,12 +19,12 @@ public class Slot {
         return slotNumber;
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
+    public SlotStatus getSlotStatus() {
+        return slotStatus;
     }
 
-    public void setOccupied(boolean occupied) {
-        isOccupied = occupied;
+    public void freeSlot() {
+        this.slotStatus = SlotStatus.FREE;
     }
 
     public Vehicle getVehicle() {
@@ -31,5 +33,11 @@ public class Slot {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+        if(vehicle!=null){
+            this.slotStatus=SlotStatus.OCCUPIED;}
+        else {
+            this.slotStatus=SlotStatus.FREE;
+        }
     }
+
 }

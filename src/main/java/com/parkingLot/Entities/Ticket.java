@@ -2,19 +2,19 @@ package com.parkingLot.Entities;
 
 public class Ticket {
     // Ticket class is used to represent a ticket issued to a vehicle by a Parking Lot
-    private final int TicketNo;
+    private final int TicketID;
     private final String parkingSlotId;
     private final String registrationNumber;
 
-    Ticket(int TicketNo, int SlotNumber, String registrationNumber, String parkinglotId) {
-        this.TicketNo = TicketNo;
+    Ticket(int TicketID, int SlotNumber, String registrationNumber, Character parkinglotId) {
+        this.TicketID = TicketID;
         this.parkingSlotId = parkinglotId+"-"+SlotNumber;
         this.registrationNumber = registrationNumber;
     }
 
 
-    public int getTicketNo() {
-        return TicketNo;
+    public int getTicketID() {
+        return TicketID;
     }
     public int getSlotNumber() {
         return Integer.parseInt(parkingSlotId.split("-")[1]);
@@ -25,5 +25,6 @@ public class Ticket {
     public String getParkingLotId() {
         return parkingSlotId.split("-")[0];
     }
+
 
 }

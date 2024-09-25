@@ -4,10 +4,12 @@ import com.parkingLot.Enums.vehicleColor;
 import com.parkingLot.Enums.vehicleType;
 
 public class Vehicle {
+    // Vehicle class represents the vehicle entity with the following attributes
+
     private final String registerNumber;
     private final vehicleType type;
     private final vehicleColor color;
-    private int parkingSlot = -1;
+
 
     public Vehicle(String registerNumber, vehicleType type, vehicleColor color) {
         this.registerNumber = registerNumber;
@@ -15,13 +17,6 @@ public class Vehicle {
         this.color = color;
     }
 
-    public void setParkingSlot(int slot) {
-        this.parkingSlot = slot;
-    }
-
-    public int getParkingSlot() {
-        return parkingSlot;
-    }
     public String getRegisterNumber() {
         return registerNumber;
     }
@@ -33,6 +28,4 @@ public class Vehicle {
     public boolean checkRegisterNumber(String RegNo) {
         return RegNo.equals(this.registerNumber);
     }
-
-
 }
