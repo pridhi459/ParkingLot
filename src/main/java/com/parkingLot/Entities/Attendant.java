@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 
 public class Attendant {
-    // An Attendant is responsible for Managing parking and unparking from parking lots
+    // An Attendant is responsible for Managing parking and un Parking from parking lots
 
     private ArrayList<ParkingLot> assignedParkingLots= new ArrayList<>();
 
-    public void assign(int parkingLotWithSlots) throws DuplicateParkingLotAssignmentException, Exception {
+    public void assign(ParkingLot parkingLot) throws DuplicateParkingLotAssignmentException, Exception {
         // Assigns a parking lot to the Attendant
 
-        ParkingLot parkingLot = new ParkingLot(parkingLotWithSlots);
+      //  ParkingLot parkingLot = new ParkingLot(parkingLotWithSlots);
         if(assignedParkingLots.contains(parkingLot)){
             throw new DuplicateParkingLotAssignmentException("Parking lot is already assigned to the Attendant");
         }
