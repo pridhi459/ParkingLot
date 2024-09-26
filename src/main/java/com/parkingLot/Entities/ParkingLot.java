@@ -2,7 +2,9 @@ package com.parkingLot.Entities;
 
 import com.parkingLot.Enums.SlotStatus;
 import com.parkingLot.Enums.vehicleColor;
-import com.parkingLot.Exceptions.SlotNotFoundException;
+import com.parkingLot.Exceptions.InvalidTicketException;
+import com.parkingLot.Exceptions.NoEmptySlotException;
+import com.parkingLot.Exceptions.VehicleCannotBeNULL;
 import com.parkingLot.Exceptions.VehicleNotFoundException;
 
 public class ParkingLot {
@@ -10,7 +12,7 @@ public class ParkingLot {
 
     private final Character parkingLotId;
     private final Slot[] Slots;
-    static int ticketCount=0;
+
     static Character parkingLotIdIncrementer ='@';
 
 
@@ -29,39 +31,41 @@ public class ParkingLot {
     }
 
     public Ticket park(Vehicle vehicle) throws Exception{
+        if(vehicle==null){
+            throw new VehicleCannotBeNULL("Vehicle cannot be null");
+        }
+
         for (Slot slot : Slots) {
-            if (slot.getSlotStatus().equals(SlotStatus.FREE)) {
-                slot.setVehicle(vehicle);
-                return new Ticket(++ticketCount,slot.getSlotNumber(),vehicle.getRegisterNumber(), parkingLotId);
+            if(slot.checkSlotStatus(SlotStatus.FREE)){
+                return slot.park(vehicle, parkingLotId);
             }
         }
-        throw new Exception("Parking lot is full");
+        throw new NoEmptySlotException("Parking Lot is Full");
     }
 
-    public Vehicle unPark(Ticket ticket) throws VehicleNotFoundException {
+    public Vehicle unPark(Ticket ticket) throws InvalidTicketException {
+        if(ticket==null){
+            throw new InvalidTicketException("Ticket cannot be null");
+        }
         Vehicle unParkVehicle = null;
-        boolean slotFound=false;
+
         for (Slot slot : Slots) {
-            if (slot.getSlotStatus().equals(SlotStatus.OCCUPIED) && slot.getSlotNumber()== ticket.getSlotNumber() ) {
-                slotFound=true;
-                unParkVehicle=slot.getVehicle();
-                if(slot.getVehicle().checkRegisterNumber(ticket.getRegistrationNumber())){
-                    slot.setVehicle(null);
-                    System.out.println("Vehicle is unparked from the parking lot and Given Back.");
-                    return unParkVehicle;}
+            System.out.println(ticket.getParkingLotId()+" "+ticket.getSlotNumber());
+            if(slot.hasTicket(ticket)){
+                return slot.unPark(ticket);
             }
         }
-        if(!slotFound){
-            throw new SlotNotFoundException("Invalid Ticket, Slot not found in Parking Lot ");
-        }
         System.out.println("Vehicle with Register number "+ ticket.getRegistrationNumber()+" is not parked in the parking lot.");
-        throw new VehicleNotFoundException("Vehicle not found in parking to be unparked");
+        throw new InvalidTicketException("Vehicle not found in parking to be un Parked");
     }
 
     public int getNumberOfCarsByColor(vehicleColor vehicleColor) {
+        if(vehicleColor==null){
+            throw new VehicleCannotBeNULL("Vehicle Color cannot be null");
+        }
         int count = 0;
         for (Slot slot : Slots) {
-            if (slot.getSlotStatus().equals(SlotStatus.OCCUPIED) && slot.getVehicle().checkColor(vehicleColor) ) {
+            if (slot.checkSlotStatus(SlotStatus.OCCUPIED) && slot.checkVehicleColor(vehicleColor) ) {
                 count++;
             }
         }
@@ -70,7 +74,7 @@ public class ParkingLot {
 
     public int findVehicleSlotByRegistrationNumber(String registerNo) {
         for (Slot slot : Slots) {
-            if (slot.getSlotStatus().equals(SlotStatus.OCCUPIED) && slot.getVehicle().checkRegisterNumber(registerNo)) {
+            if (slot.checkSlotStatus(SlotStatus.OCCUPIED) && slot.hasRegisterNumber(registerNo)) {
                 return slot.getSlotNumber();
             }
         }
@@ -79,28 +83,19 @@ public class ParkingLot {
         throw new VehicleNotFoundException("Vehicle not found");
     }
 
-    public int getVacantSlots() {
+    public int numberOfVacantSlots() {
         //Returns the number of vacant slots in the parking lot
+
         int capacity=0;
         for(Slot slot: Slots){
-            if(slot.getSlotStatus().equals(SlotStatus.FREE)){
+            if(slot.checkSlotStatus(SlotStatus.FREE)){
                 capacity++;
             }
         }
         return capacity;
     }
 
-    public boolean checkEmptySlot(int slotId) throws Exception{
-        //Check if the slot is empty or not
-        for(Slot slot: Slots){
-            if(slot.getSlotNumber()==slotId){
-                return slot.getSlotStatus().equals(SlotStatus.FREE) || slot.getVehicle() == null;
-            }
-        }
-        throw new Exception("Slot not found");
-    }
-
-    public Character getParkingLotId() {
-        return parkingLotId;
+    public boolean hasParkingLotId( String parkingLotId) {
+        return Character.toString(this.parkingLotId).equals(parkingLotId);
     }
 }

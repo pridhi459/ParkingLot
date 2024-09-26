@@ -2,10 +2,9 @@ package com.parkingLot.Entities;
 
 import com.parkingLot.Enums.vehicleColor;
 import com.parkingLot.Enums.vehicleType;
-import com.parkingLot.Exceptions.DuplicateParkingLotAssignmentException;
-import com.parkingLot.Exceptions.VehicleNotFoundException;
+import com.parkingLot.Exceptions.VehicleAlreadyParkedException;
+import com.parkingLot.Exceptions.InvalidTicketException;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.core.parameters.P;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +40,7 @@ public class AttendantTest {
     }
 
     @Test
-    void TestShouldNotUnParkCarWithTicketFromDifferentParkingLotOfSameSlot() throws Exception {
+    void TestAttendantShouldNotUnParkCarWithTicketFromDifferentParkingLotOfSameSlot() throws Exception {
         Attendant firstAttendant = new Attendant();
         ParkingLot firstParkingLot= new ParkingLot(1);
         firstAttendant.assign(firstParkingLot);
@@ -55,11 +54,11 @@ public class AttendantTest {
         Ticket anotherTicket = anotherAttendant.park(anotherCar);
 
         System.out.println(anotherTicket.getParkingLotId()+" "+firstTicket.getParkingLotId()) ;
-        assertThrows(VehicleNotFoundException.class,()->firstAttendant.unPark(anotherTicket));
+        assertThrows(InvalidTicketException.class,()->firstAttendant.unPark(anotherTicket));
     }
 
     @Test
-    void TestShouldUnParkRightCarWithTicket() throws Exception {
+    void TestAttendantShouldUnParkRightCarWithTicket() throws Exception {
         Attendant firstAttendant = new Attendant();
         ParkingLot firstParkingLot= new ParkingLot(1);
         firstAttendant.assign(firstParkingLot);
@@ -82,7 +81,7 @@ public class AttendantTest {
     }
 
     @Test
-    void TestParkInNearestAvailableSlot() throws Exception {
+    void TestAttendantParksInNearestAvailableSlot() throws Exception {
         Attendant attendant = new Attendant();
         ParkingLot firstparkingLot= new ParkingLot(2);
         ParkingLot secondparkingLot= new ParkingLot(1);
@@ -102,5 +101,21 @@ public class AttendantTest {
 
         assertEquals(fourthTicket.getSlotNumber(), secoundTicket.getSlotNumber());
         assertEquals(fourthTicket.getParkingLotId(), secoundTicket.getParkingLotId());
+    }
+
+    @Test
+    void TestParkingAParkedCar() throws Exception{
+        Attendant attendant = new Attendant();
+        ParkingLot parkingLot = new ParkingLot(2);
+        attendant.assign(parkingLot);
+
+        Vehicle firstCar = new Vehicle("IN-781", vehicleType.CAR, vehicleColor.GREEN);
+        attendant.park(firstCar);
+
+        Vehicle secondCar = new Vehicle("IN-782", vehicleType.CAR, vehicleColor.PINK);
+        attendant.park(secondCar);
+
+        assertThrows(VehicleAlreadyParkedException.class,()->attendant.park(firstCar));
+
     }
 }

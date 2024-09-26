@@ -5,10 +5,11 @@ public class Ticket {
     private final int TicketID;
     private final String parkingSlotId;
     private final String registrationNumber;
+    static int ticketCount=0;
 
-    Ticket(int TicketID, int SlotNumber, String registrationNumber, Character parkinglotId) {
-        this.TicketID = TicketID;
-        this.parkingSlotId = parkinglotId+"-"+SlotNumber;
+    Ticket( int SlotNumber, String registrationNumber, Character parkingLotId) {
+        this.TicketID = ++ticketCount;
+        this.parkingSlotId = parkingLotId +"-"+SlotNumber;
         this.registrationNumber = registrationNumber;
     }
 
@@ -25,6 +26,22 @@ public class Ticket {
     public String getParkingLotId() {
         return parkingSlotId.split("-")[0];
     }
+    public boolean checkSlotNumber(int slotNumber) {
+        return slotNumber == Integer.parseInt(parkingSlotId.split("-")[1]);
+    }
 
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Ticket)) {
+            return false;
+        }
+        Ticket otherTicket = (Ticket) o;
+        return  this.parkingSlotId.equals(otherTicket.parkingSlotId) && this.registrationNumber.equals(otherTicket.registrationNumber);
+    }
 
 }
