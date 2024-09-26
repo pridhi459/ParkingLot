@@ -93,6 +93,10 @@ public class Slot {
     }
 
 
-
-
+    public int findVehicle(String registerNo) {
+        if(this.vehicle.checkRegisterNumber(registerNo)){
+            return this.slotNumber;
+        }
+        return -1;
+    }
 }

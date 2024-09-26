@@ -75,7 +75,7 @@ public class ParkingLot {
     public int findVehicleSlotByRegistrationNumber(String registerNo) {
         for (Slot slot : Slots) {
             if (slot.checkSlotStatus(SlotStatus.OCCUPIED) && slot.hasRegisterNumber(registerNo)) {
-                return slot.getSlotNumber();
+                return slot.findVehicle(registerNo);
             }
         }
 
