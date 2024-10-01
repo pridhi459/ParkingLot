@@ -1,4 +1,4 @@
-package com.parkingLot.Exceptions;
+package com.parkingLot.exceptions;
 
 public class VehicleCannotBeNULL extends RuntimeException {
     public VehicleCannotBeNULL(String message) {

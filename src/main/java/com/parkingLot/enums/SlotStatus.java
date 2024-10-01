@@ -1,4 +1,4 @@
-package com.parkingLot.Enums;
+package com.parkingLot.enums;
 
 public enum SlotStatus {
     OCCUPIED,

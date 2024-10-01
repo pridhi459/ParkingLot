@@ -1,7 +1,7 @@
-package com.parkingLot.Entities;
+package com.parkingLot.entities;
 
-import com.parkingLot.Enums.vehicleColor;
-import com.parkingLot.Enums.vehicleType;
+import com.parkingLot.enums.vehicleColor;
+import com.parkingLot.enums.vehicleType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

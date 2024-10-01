@@ -1,9 +1,9 @@
-package com.parkingLot.Entities;
+package com.parkingLot.entities;
 
-import com.parkingLot.Enums.SlotStatus;
-import com.parkingLot.Enums.vehicleColor;
+import com.parkingLot.enums.SlotStatus;
+import com.parkingLot.enums.vehicleColor;
 
-import com.parkingLot.Exceptions.VehicleNotFoundException;
+import com.parkingLot.exceptions.VehicleNotFoundException;
 
 public class Slot {
     // Slot class is used to represent a parking slot in a parking lot
@@ -12,7 +12,6 @@ public class Slot {
     private SlotStatus slotStatus;
     private Vehicle vehicle=null;
     private Ticket assignedTicket=null;
-
 
     public Slot(int slotNumber) {
         this.slotNumber = slotNumber;
@@ -41,13 +40,7 @@ public class Slot {
         return null;
     }
 
-
-
-    public int getSlotNumber() {
-        return slotNumber;
-    }
-
-    public boolean checkSlotStatus(SlotStatus slotStatus) {
+    public boolean checkIsSlotFree(SlotStatus slotStatus) {
         return this.slotStatus.equals(slotStatus) ;
     }
 

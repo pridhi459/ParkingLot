@@ -1,4 +1,4 @@
-package com.parkingLot.Exceptions;
+package com.parkingLot.exceptions;
 
 public class NoEmptySlotException extends RuntimeException {
     public NoEmptySlotException(String message) {

@@ -1,4 +1,4 @@
-package com.parkingLot.Entities;
+package com.parkingLot.entities;
 
 public class Ticket {
     // Ticket class is used to represent a ticket issued to a vehicle by a Parking Lot
@@ -17,12 +17,17 @@ public class Ticket {
     public int getTicketID() {
         return TicketID;
     }
+
+    //Created just For testing purpose
     public int getSlotNumber() {
         return Integer.parseInt(parkingSlotId.split("-")[1]);
     }
+
+    //Created just For testing purpose
     public String getRegistrationNumber() {
         return registrationNumber;
     }
+
     public String getParkingLotId() {
         return parkingSlotId.split("-")[0];
     }

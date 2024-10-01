@@ -1,7 +1,7 @@
-package com.parkingLot.Entities;
+package com.parkingLot.entities;
 
-import com.parkingLot.Enums.vehicleColor;
-import com.parkingLot.Enums.vehicleType;
+import com.parkingLot.enums.vehicleColor;
+import com.parkingLot.enums.vehicleType;
 
 public class Vehicle {
     // Vehicle class represents the vehicle entity with the following attributes

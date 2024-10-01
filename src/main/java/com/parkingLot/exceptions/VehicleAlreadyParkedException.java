@@ -1,4 +1,4 @@
-package com.parkingLot.Exceptions;
+package com.parkingLot.exceptions;
 
 public class VehicleAlreadyParkedException extends RuntimeException {
     public VehicleAlreadyParkedException(String message) {

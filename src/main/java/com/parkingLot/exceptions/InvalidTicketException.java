@@ -1,4 +1,4 @@
-package com.parkingLot.Exceptions;
+package com.parkingLot.exceptions;
 
 public class InvalidTicketException extends RuntimeException {
     public InvalidTicketException(String message) {
